@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Website Audit — Build Block Agency</title>
+    <meta name="description" content="Get a free, no-obligation website audit for your local business. We'll show you exactly how to get more customers online.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1a1a1a; line-height: 1.6; background: #f8fafc; }
+        
+        .hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+            color: white;
+            padding: 60px 20px 80px;
+            text-align: center;
+        }
+        .hero h1 { font-size: 2.4rem; margin-bottom: 16px; font-weight: 800; }
+        .hero p { font-size: 1.15rem; max-width: 560px; margin: 0 auto; opacity: 0.9; }
+        
+        .container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
+        
+        .form-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+            padding: 40px;
+            margin: -40px auto 40px;
+            max-width: 600px;
+        }
+        .form-card h2 { font-size: 1.4rem; margin-bottom: 8px; }
+        .form-card .subtitle { color: #64748b; margin-bottom: 24px; font-size: 0.95rem; }
+        
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 0.9rem; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+        
+        .submit-btn {
+            display: block;
+            width: 100%;
+            background: #f59e0b;
+            color: #0f172a;
+            padding: 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .submit-btn:hover { background: #d97706; }
+        
+        .benefits { padding: 40px 20px 60px; }
+        .benefits h2 { text-align: center; font-size: 1.6rem; margin-bottom: 32px; }
+        .benefit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; max-width: 800px; margin: 0 auto; }
+        .benefit-item { text-align: center; padding: 24px; }
+        .benefit-item .icon { font-size: 2rem; margin-bottom: 12px; }
+        .benefit-item h3 { font-size: 1.05rem; margin-bottom: 8px; }
+        .benefit-item p { color: #64748b; font-size: 0.9rem; }
+        
+        .trust { text-align: center; padding: 20px; color: #94a3b8; font-size: 0.85rem; }
+        .trust a { color: #3b82f6; text-decoration: none; }
+        
+        .fine-print { text-align: center; padding: 24px; color: #94a3b8; font-size: 0.8rem; border-top: 1px solid #e2e8f0; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>🔍 Free Website Audit</h1>
+        <p>Find out exactly what's stopping your website from bringing in more customers — in under 48 hours. No cost, no obligation.</p>
+    </div>
+    
+    <div class="form-card">
+        <h2>Request Your Free Audit</h2>
+        <p class="subtitle">Takes 30 seconds. We'll review your site and send you a personalized report.</p>
+        
+        <form action="https://formspree.io/f/xdkonkrj" method="POST">
+            <input type="hidden" name="_subject" value="🔍 New Free Audit Request!">
+            <input type="hidden" name="_next" value="https://charles95-do.github.io/buildblockagency-site/audit-thanks.html">
+            
+            <div class="form-group">
+                <label>Your Name</label>
+                <input type="text" name="name" required placeholder="e.g., John Smith">
+            </div>
+            
+            <div class="form-group">
+                <label>Business Name</label>
+                <input type="text" name="business" required placeholder="e.g., Smith's Plumbing">
+            </div>
+            
+            <div class="form-group">
+                <label>Website URL</label>
+                <input type="url" name="website" required placeholder="e.g., https://smithsplumbing.com">
+            </div>
+            
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" required placeholder="you@yourbusiness.com">
+            </div>
+            
+            <div class="form-group">
+                <label>What type of business do you run?</label>
+                <select name="business_type" required>
+                    <option value="">Select one...</option>
+                    <option value="home-services">Home Services (HVAC, Plumbing, Electric, etc.)</option>
+                    <option value="healthcare">Healthcare (Dental, Chiro, PT, Med Spa, etc.)</option>
+                    <option value="fitness">Fitness / Gym / Martial Arts</option>
+                    <option value="beauty">Beauty / Salon / Spa</option>
+                    <option value="restaurant">Restaurant / Food Service</option>
+                    <option value="automotive">Automotive / Auto Repair</option>
+                    <option value="real-estate">Real Estate</option>
+                    <option value="professional">Professional Services (Law, Accounting, etc.)</option>
+                    <option value="childcare">Childcare / Education</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>What's your biggest challenge right now? (optional)</label>
+                <textarea name="challenge" placeholder="e.g., Not enough new customers, can't show up on Google, no online booking..."></textarea>
+            </div>
+            
+            <button type="submit" class="submit-btn">Get My Free Audit →</button>
+        </form>
+    </div>
+    
+    <div class="benefits">
+        <h2>What You'll Get</h2>
+        <div class="benefit-grid">
+            <div class="benefit-item">
+                <div class="icon">📊</div>
+                <h3>Performance Score</h3>
+                <p>How fast your site loads and how it looks on mobile — the two biggest factors Google cares about.</p>
+            </div>
+            <div class="benefit-item">
+                <div class="icon">🔍</div>
+                <h3>SEO Check</h3>
+                <p>Can customers find you on Google? We'll check your local SEO, keywords, and Google Business presence.</p>
+            </div>
+            <div class="benefit-item">
+                <div class="icon">💰</div>
+                <h3>Conversion Review</h3>
+                <p>Is your site turning visitors into customers? We'll identify the gaps costing you leads.</p>
+            </div>
+            <div class="benefit-item">
+                <div class="icon">🎯</div>
+                <h3>Action Plan</h3>
+                <p>A prioritized list of exactly what to fix first for maximum impact. No fluff, just results.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="trust">
+        <p>Build Block Agency — Web Design & Automation for Local Businesses</p>
+        <p><a href="index.html">← Back to main site</a> · charlie@buildblockagency.com</p>
+    </div>
+    
+    <div class="fine-print">
+        <p>100% free. No credit card. No obligation. We just like helping local businesses win online.</p>
+    </div>
+</body>
+</html>
