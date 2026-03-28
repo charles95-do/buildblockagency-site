@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://charles95-do.github.io/buildblockagency-site/sitemap.xml
