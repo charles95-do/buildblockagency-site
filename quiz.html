@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Website Health Quiz | Build Block Agency</title>
+    <meta name="description" content="Is your business website costing you customers? Take our free 60-second quiz and get a personalized score with actionable recommendations.">
+    <meta name="keywords" content="website audit, website health check, free website quiz, small business website, Waldorf MD web design">
+    <link rel="canonical" href="https://charles95-do.github.io/buildblockagency-site/quiz.html">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0a; color: #e0e0e0; min-height: 100vh; }
+        .container { max-width: 680px; margin: 0 auto; padding: 24px 20px; }
+        
+        /* Header */
+        .header { text-align: center; padding: 40px 0 30px; }
+        .header h1 { font-size: 2rem; font-weight: 800; background: linear-gradient(135deg, #00d4ff, #7b2ff7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 12px; }
+        .header p { font-size: 1.1rem; color: #999; line-height: 1.5; }
+        .header .time-badge { display: inline-block; background: rgba(123,47,247,0.15); color: #b388ff; padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; margin-top: 12px; }
+
+        /* Progress bar */
+        .progress-wrap { background: #1a1a2e; border-radius: 10px; height: 8px; margin-bottom: 30px; overflow: hidden; }
+        .progress-bar { height: 100%; background: linear-gradient(90deg, #00d4ff, #7b2ff7); border-radius: 10px; transition: width 0.4s ease; width: 0%; }
+        .progress-text { text-align: center; font-size: 0.85rem; color: #666; margin-bottom: 12px; }
+
+        /* Question card */
+        .question-card { background: #141428; border: 1px solid #2a2a4a; border-radius: 16px; padding: 32px 28px; margin-bottom: 24px; animation: fadeIn 0.3s ease; }
+        .question-card h2 { font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; color: #fff; }
+        .question-card .subtitle { font-size: 0.9rem; color: #888; margin-bottom: 24px; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Answer options */
+        .options { display: flex; flex-direction: column; gap: 12px; }
+        .option { background: #1a1a2e; border: 2px solid #2a2a4a; border-radius: 12px; padding: 16px 20px; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 14px; }
+        .option:hover { border-color: #7b2ff7; background: #1e1e3a; }
+        .option.selected { border-color: #00d4ff; background: rgba(0,212,255,0.08); }
+        .option .icon { font-size: 1.4rem; flex-shrink: 0; }
+        .option .label { font-size: 1rem; color: #ccc; }
+        .option.selected .label { color: #fff; }
+
+        /* Results */
+        .results { text-align: center; animation: fadeIn 0.5s ease; }
+        .score-circle { width: 160px; height: 160px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 24px; position: relative; }
+        .score-circle .number { font-size: 3rem; font-weight: 900; color: #fff; }
+        .score-circle .out-of { font-size: 0.9rem; color: #999; }
+        .score-label { font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; }
+        .score-desc { font-size: 1rem; color: #999; line-height: 1.6; margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto; }
+
+        .issues-list { text-align: left; background: #141428; border: 1px solid #2a2a4a; border-radius: 16px; padding: 24px; margin-bottom: 28px; }
+        .issues-list h3 { font-size: 1.1rem; margin-bottom: 16px; color: #ff6b6b; }
+        .issues-list ul { list-style: none; }
+        .issues-list li { padding: 10px 0; border-bottom: 1px solid #1e1e3a; font-size: 0.95rem; color: #ccc; display: flex; gap: 10px; align-items: flex-start; }
+        .issues-list li:last-child { border-bottom: none; }
+        .issues-list li .bullet { color: #ff6b6b; flex-shrink: 0; }
+
+        .wins-list { text-align: left; background: #141428; border: 1px solid #2a2a4a; border-radius: 16px; padding: 24px; margin-bottom: 28px; }
+        .wins-list h3 { font-size: 1.1rem; margin-bottom: 16px; color: #4caf50; }
+        .wins-list ul { list-style: none; }
+        .wins-list li { padding: 10px 0; border-bottom: 1px solid #1e1e3a; font-size: 0.95rem; color: #ccc; display: flex; gap: 10px; }
+        .wins-list li:last-child { border-bottom: none; }
+        .wins-list li .bullet { color: #4caf50; flex-shrink: 0; }
+
+        /* CTA */
+        .cta-box { background: linear-gradient(135deg, rgba(0,212,255,0.1), rgba(123,47,247,0.1)); border: 1px solid #7b2ff7; border-radius: 16px; padding: 28px; margin-bottom: 20px; }
+        .cta-box h3 { font-size: 1.2rem; margin-bottom: 8px; color: #fff; }
+        .cta-box p { font-size: 0.95rem; color: #aaa; margin-bottom: 20px; line-height: 1.5; }
+        .cta-btn { display: inline-block; background: linear-gradient(135deg, #00d4ff, #7b2ff7); color: #fff; text-decoration: none; padding: 14px 36px; border-radius: 10px; font-weight: 700; font-size: 1.05rem; transition: transform 0.2s; }
+        .cta-btn:hover { transform: scale(1.03); }
+
+        .share-section { margin-top: 20px; }
+        .share-section p { color: #666; font-size: 0.9rem; margin-bottom: 10px; }
+        .share-btn { display: inline-block; background: #1a1a2e; border: 1px solid #2a2a4a; color: #aaa; text-decoration: none; padding: 8px 18px; border-radius: 8px; font-size: 0.85rem; margin: 4px; cursor: pointer; transition: all 0.2s; }
+        .share-btn:hover { border-color: #7b2ff7; color: #fff; }
+
+        /* Email capture in results */
+        .email-capture { background: #1a1a2e; border: 1px solid #2a2a4a; border-radius: 16px; padding: 24px; margin-bottom: 28px; text-align: center; }
+        .email-capture h3 { font-size: 1.1rem; margin-bottom: 8px; }
+        .email-capture p { font-size: 0.9rem; color: #888; margin-bottom: 16px; }
+        .email-capture form { display: flex; gap: 10px; max-width: 420px; margin: 0 auto; }
+        .email-capture input[type="email"] { flex: 1; background: #0a0a0a; border: 1px solid #2a2a4a; color: #fff; padding: 12px 16px; border-radius: 8px; font-size: 0.95rem; }
+        .email-capture input[type="email"]::placeholder { color: #555; }
+        .email-capture input[type="hidden"] { display: none; }
+        .email-capture button { background: linear-gradient(135deg, #00d4ff, #7b2ff7); color: #fff; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 0.95rem; white-space: nowrap; }
+
+        .footer { text-align: center; padding: 40px 0 20px; color: #444; font-size: 0.8rem; }
+        .footer a { color: #7b2ff7; text-decoration: none; }
+
+        @media (max-width: 480px) {
+            .header h1 { font-size: 1.5rem; }
+            .question-card { padding: 24px 20px; }
+            .email-capture form { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header" id="header">
+            <h1>Is Your Website Losing You Customers?</h1>
+            <p>Answer 8 quick questions about your business website. Get a personalized score and actionable fixes — free.</p>
+            <span class="time-badge">⏱️ Takes 60 seconds</span>
+        </div>
+
+        <div id="quiz-area">
+            <div class="progress-text" id="progress-text">Question 1 of 8</div>
+            <div class="progress-wrap"><div class="progress-bar" id="progress-bar"></div></div>
+            <div id="question-container"></div>
+        </div>
+
+        <div id="results-area" style="display:none;"></div>
+    </div>
+
+    <script>
+    const questions = [
+        {
+            q: "Can customers book appointments or request quotes on your website?",
+            sub: "Online booking converts 3x more visitors than phone-only.",
+            options: [
+                { text: "Yes — full online booking/quote form", icon: "✅", score: 3 },
+                { text: "Just a contact form or email link", icon: "📧", score: 1 },
+                { text: "No — phone calls only", icon: "📞", score: 0 }
+            ]
+        },
+        {
+            q: "Does your website look good on a phone?",
+            sub: "63% of Google searches happen on mobile devices.",
+            options: [
+                { text: "Yes — fully responsive, looks great", icon: "📱", score: 3 },
+                { text: "Kind of — works but not perfect", icon: "🤷", score: 1 },
+                { text: "No / I'm not sure", icon: "❌", score: 0 }
+            ]
+        },
+        {
+            q: "How fast does your website load?",
+            sub: "53% of visitors leave if a page takes more than 3 seconds.",
+            options: [
+                { text: "Fast — loads in 1-2 seconds", icon: "⚡", score: 3 },
+                { text: "Average — about 3-5 seconds", icon: "🐢", score: 1 },
+                { text: "Slow / I don't know", icon: "🦥", score: 0 }
+            ]
+        },
+        {
+            q: "Do you show up on Google when people search for your services + your city?",
+            sub: "Example: \"plumber Waldorf MD\" or \"dentist La Plata\"",
+            options: [
+                { text: "Yes — first page of Google", icon: "🥇", score: 3 },
+                { text: "Somewhere on page 2-3", icon: "🔍", score: 1 },
+                { text: "No / I've never checked", icon: "👻", score: 0 }
+            ]
+        },
+        {
+            q: "Do you have 10+ Google reviews with a 4+ star rating?",
+            sub: "88% of consumers trust online reviews as much as personal recommendations.",
+            options: [
+                { text: "Yes — lots of great reviews", icon: "⭐", score: 3 },
+                { text: "A few reviews (under 10)", icon: "🌟", score: 1 },
+                { text: "No reviews / bad reviews", icon: "😬", score: 0 }
+            ]
+        },
+        {
+            q: "Does your website clearly show your phone number, address, and hours?",
+            sub: "Missing contact info is the #1 reason visitors leave local business sites.",
+            options: [
+                { text: "Yes — all visible without scrolling", icon: "📍", score: 3 },
+                { text: "Some info, but you have to look for it", icon: "🔎", score: 1 },
+                { text: "Missing one or more of these", icon: "🚫", score: 0 }
+            ]
+        },
+        {
+            q: "Do you follow up with customers after their visit/purchase?",
+            sub: "Automated follow-ups increase repeat business by 30-40%.",
+            options: [
+                { text: "Yes — automated emails/texts", icon: "🤖", score: 3 },
+                { text: "Sometimes — manually when I remember", icon: "💭", score: 1 },
+                { text: "No follow-up system", icon: "🙈", score: 0 }
+            ]
+        },
+        {
+            q: "When was your website last updated?",
+            sub: "Outdated websites signal \"this business might be closed\" to customers.",
+            options: [
+                { text: "Within the last 3 months", icon: "🆕", score: 3 },
+                { text: "6-12 months ago", icon: "📅", score: 1 },
+                { text: "Over a year ago / I can't remember", icon: "🕸️", score: 0 }
+            ]
+        }
+    ];
+
+    let currentQ = 0;
+    let answers = [];
+
+    function renderQuestion() {
+        const q = questions[currentQ];
+        const container = document.getElementById('question-container');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+
+        progressBar.style.width = ((currentQ / questions.length) * 100) + '%';
+        progressText.textContent = `Question ${currentQ + 1} of ${questions.length}`;
+
+        let html = `<div class="question-card">
+            <h2>${q.q}</h2>
+            <p class="subtitle">${q.sub}</p>
+            <div class="options">`;
+        
+        q.options.forEach((opt, i) => {
+            html += `<div class="option" onclick="selectAnswer(${i})" id="opt-${i}">
+                <span class="icon">${opt.icon}</span>
+                <span class="label">${opt.text}</span>
+            </div>`;
+        });
+
+        html += `</div></div>`;
+        container.innerHTML = html;
+    }
+
+    function selectAnswer(optIndex) {
+        const q = questions[currentQ];
+        answers.push({
+            question: q.q,
+            answer: q.options[optIndex].text,
+            score: q.options[optIndex].score
+        });
+
+        // Visual feedback
+        document.querySelectorAll('.option').forEach(o => o.style.pointerEvents = 'none');
+        document.getElementById('opt-' + optIndex).classList.add('selected');
+
+        setTimeout(() => {
+            currentQ++;
+            if (currentQ < questions.length) {
+                renderQuestion();
+            } else {
+                showResults();
+            }
+        }, 400);
+    }
+
+    function showResults() {
+        document.getElementById('quiz-area').style.display = 'none';
+        document.getElementById('header').style.display = 'none';
+
+        const totalScore = answers.reduce((sum, a) => sum + a.score, 0);
+        const maxScore = questions.length * 3;
+        const pct = Math.round((totalScore / maxScore) * 100);
+
+        let grade, gradeColor, gradeDesc;
+        if (pct >= 80) {
+            grade = "A — Excellent";
+            gradeColor = "#4caf50";
+            gradeDesc = "Your website is doing great! You're ahead of 90% of local businesses. There may still be a few tweaks to maximize conversions.";
+        } else if (pct >= 60) {
+            grade = "B — Good";
+            gradeColor = "#8bc34a";
+            gradeDesc = "Solid foundation, but you're leaving money on the table. A few strategic upgrades could significantly increase your leads.";
+        } else if (pct >= 40) {
+            grade = "C — Needs Work";
+            gradeColor = "#ff9800";
+            gradeDesc = "Your website is functional but underperforming. You're likely losing 30-50% of potential customers to competitors with better online presence.";
+        } else if (pct >= 20) {
+            grade = "D — Falling Behind";
+            gradeColor = "#ff5722";
+            gradeDesc = "Your competitors are eating your lunch online. Every day without fixing these issues costs you real customers and real revenue.";
+        } else {
+            grade = "F — Critical";
+            gradeColor = "#f44336";
+            gradeDesc = "Your online presence is actively hurting your business. The good news? Even small fixes will have a massive impact at this stage.";
+        }
+
+        // Separate issues and wins
+        let issues = [];
+        let wins = [];
+        answers.forEach(a => {
+            if (a.score === 0) issues.push(a);
+            else if (a.score === 3) wins.push(a);
+        });
+
+        let html = `<div class="results">
+            <div class="score-circle" style="background: conic-gradient(${gradeColor} ${pct}%, #1a1a2e ${pct}%);">
+                <div style="background:#141428;width:130px;height:130px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+                    <span class="number">${totalScore}</span>
+                    <span class="out-of">out of ${maxScore}</span>
+                </div>
+            </div>
+            <div class="score-label" style="color:${gradeColor}">${grade}</div>
+            <p class="score-desc">${gradeDesc}</p>`;
+
+        if (issues.length > 0) {
+            html += `<div class="issues-list"><h3>🔴 Areas Costing You Customers</h3><ul>`;
+            issues.forEach(i => {
+                let fix = getFix(i.question);
+                html += `<li><span class="bullet">✗</span><span><strong>${simplifyQ(i.question)}</strong> — ${fix}</span></li>`;
+            });
+            html += `</ul></div>`;
+        }
+
+        if (wins.length > 0) {
+            html += `<div class="wins-list"><h3>🟢 What You're Doing Right</h3><ul>`;
+            wins.forEach(w => {
+                html += `<li><span class="bullet">✓</span><span>${simplifyQ(w.question)}</span></li>`;
+            });
+            html += `</ul></div>`;
+        }
+
+        // Email capture
+        let issuesSummary = issues.map(i => simplifyQ(i.question)).join(', ') || 'None identified';
+        html += `<div class="email-capture">
+            <h3>📧 Get Your Full Report + Fix Guide</h3>
+            <p>Enter your email to receive a detailed breakdown with step-by-step fixes tailored to your score.</p>
+            <form action="https://formspree.io/f/xdkonkrj" method="POST">
+                <input type="hidden" name="_subject" value="Quiz Lead — Score ${totalScore}/${maxScore} (${grade})">
+                <input type="hidden" name="quiz_score" value="${totalScore}/${maxScore}">
+                <input type="hidden" name="quiz_grade" value="${grade}">
+                <input type="hidden" name="quiz_issues" value="${issuesSummary}">
+                <input type="email" name="email" placeholder="you@yourbusiness.com" required>
+                <button type="submit">Send My Report</button>
+            </form>
+        </div>`;
+
+        // CTA
+        html += `<div class="cta-box">
+            <h3>Want Us to Fix It For You?</h3>
+            <p>We build fast, modern websites with online booking, review automation, and SEO — starting at $500. Your first consultation is free.</p>
+            <a href="free-audit.html" class="cta-btn">Get a Free Expert Audit →</a>
+        </div>`;
+
+        // Share
+        let shareText = encodeURIComponent(`I just scored ${totalScore}/${maxScore} on the Website Health Quiz. How does your business stack up?`);
+        let shareUrl = encodeURIComponent('https://charles95-do.github.io/buildblockagency-site/quiz.html');
+        html += `<div class="share-section">
+            <p>Share your results:</p>
+            <a class="share-btn" href="https://twitter.com/intent/tweet?text=${shareText}&url=${shareUrl}" target="_blank">𝕏 Share</a>
+            <a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u=${shareUrl}" target="_blank">Facebook</a>
+            <span class="share-btn" onclick="copyLink()">📋 Copy Link</span>
+        </div>`;
+
+        html += `<div class="footer"><p>Built by <a href="index.html">Build Block Agency</a> · Waldorf, MD</p></div>`;
+        html += `</div>`;
+
+        document.getElementById('results-area').innerHTML = html;
+        document.getElementById('results-area').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function simplifyQ(q) {
+        const map = {
+            "Can customers book appointments or request quotes on your website?": "No online booking or quote system",
+            "Does your website look good on a phone?": "Mobile experience",
+            "How fast does your website load?": "Page speed",
+            "Do you show up on Google when people search for your services + your city?": "Local SEO / Google visibility",
+            "Do you have 10+ Google reviews with a 4+ star rating?": "Google reviews",
+            "Does your website clearly show your phone number, address, and hours?": "Contact info visibility",
+            "Do you follow up with customers after their visit/purchase?": "Customer follow-up system",
+            "When was your website last updated?": "Website freshness"
+        };
+        return map[q] || q;
+    }
+
+    function getFix(q) {
+        const fixes = {
+            "Can customers book appointments or request quotes on your website?": "Adding online booking can increase leads by 200%. Tools like Calendly or a simple quote form take 1 day to set up.",
+            "Does your website look good on a phone?": "63% of your visitors are on phones. A mobile-unfriendly site is turning away most of your traffic.",
+            "How fast does your website load?": "Every 1-second delay reduces conversions by 7%. Image optimization and better hosting fix this fast.",
+            "Do you show up on Google when people search for your services + your city?": "If you're not on page 1, you're invisible. Local SEO (Google Business Profile, keywords, citations) fixes this.",
+            "Do you have 10+ Google reviews with a 4+ star rating?": "Businesses with 10+ reviews get 3x more clicks. A simple text/email after each visit automates this.",
+            "Does your website clearly show your phone number, address, and hours?": "46% of Google searches are local. If visitors can't find your info in 5 seconds, they bounce.",
+            "Do you follow up with customers after their visit/purchase?": "A $0 automated email follow-up increases repeat business 30-40%. This is the easiest win.",
+            "When was your website last updated?": "An outdated site signals 'we might be closed.' Fresh content also boosts your Google ranking."
+        };
+        return fixes[q] || "This is an area with room for improvement.";
+    }
+
+    function copyLink() {
+        navigator.clipboard.writeText('https://charles95-do.github.io/buildblockagency-site/quiz.html');
+        event.target.textContent = '✅ Copied!';
+        setTimeout(() => event.target.textContent = '📋 Copy Link', 2000);
+    }
+
+    // Start
+    renderQuestion();
+    </script>
+</body>
+</html>
